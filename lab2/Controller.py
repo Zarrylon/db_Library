@@ -151,9 +151,13 @@ class Controller_db:
                 cond = str("s.startdate >= " + "'" + str(startd) + "'" + " AND s.duedate <= " + "'" + str(dued) + "'" +
                            " AND r.name LIKE " + "'" + str(rname) + "%'")
                 # print(cond)
-                self.view.display_search(tname, cond)
                 c = self.model.join_reader_subscription(cond)
                 self.view.show(c)
+                if not c:
+                    print("Row not found")
+                else:
+                    self.view.display_search(tname, cond)
+                    self.view.show(c)
             elif num == '2':
                 tname = 'Author | Books'
                 b = input('(True or False : ')
@@ -162,9 +166,12 @@ class Controller_db:
                 cond = str("b.isavailable = " + str(b) + " AND b.size >= " + str(size)
                            + " AND a.name LIKE " + "'" + str(aname) + "%'")
                 # print(cond)
-                self.view.display_search(tname, cond)
                 c = self.model.join_author_books(cond)
-                self.view.show(c)
+                if not c:
+                    print("Row not found")
+                else:
+                    self.view.display_search(tname, cond)
+                    self.view.show(c)
             elif num == '3':
                 tname = 'Books | Subscription'
                 ch = input('Part of book name : ')
@@ -174,10 +181,15 @@ class Controller_db:
                            + " AND s.duedate <= " + "'" + str(duedate) + "'"
                            + " AND b.size >= " + str(size))
                 # print(cond)
-                self.view.display_search(tname, cond)
-                c = self.model.join_subscription_books(cond)
+                c = self.model.join_author_books(cond)
+                print("+++")
                 self.view.show(c)
-
+                print("+++")
+                if not c:
+                    print("Row not found")
+                else:
+                    self.view.display_search(tname, cond)
+                    self.view.show(c)
             else:
                 print("Incorrect input")
         except (Exception, psycopg2.Error) as error:
