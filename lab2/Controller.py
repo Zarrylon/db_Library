@@ -152,7 +152,6 @@ class Controller_db:
                            " AND r.name LIKE " + "'" + str(rname) + "%'")
                 # print(cond)
                 c = self.model.join_reader_subscription(cond)
-                self.view.show(c)
                 if not c:
                     print("Row not found")
                 else:
@@ -182,9 +181,6 @@ class Controller_db:
                            + " AND b.size >= " + str(size))
                 # print(cond)
                 c = self.model.join_author_books(cond)
-                print("+++")
-                self.view.show(c)
-                print("+++")
                 if not c:
                     print("Row not found")
                 else:
