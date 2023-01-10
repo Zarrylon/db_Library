@@ -149,7 +149,7 @@ class Controller_db:
                 dued = input('Due date (xxxx-yy-zz) : ')
                 rname = input('Reader name : ')
                 cond = str("s.startdate >= " + "'" + str(startd) + "'" + " AND s.duedate <= " + "'" + str(dued) + "'" +
-                           " AND r.name >= " + "'" + str(rname) + "'")
+                           " AND r.name LIKE " + "'" + str(rname) + "%'")
                 # print(cond)
                 self.view.display_search(tname, cond)
                 c = self.model.join_reader_subscription(cond)
